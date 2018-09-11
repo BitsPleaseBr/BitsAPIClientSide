@@ -2,29 +2,22 @@ package s3.api.method.resources;
 
 import com.amazonaws.http.HttpMethodName;
 
-public enum Users implements Resource {
+public class Users extends Resource {
 
   
-  Login("/developing/login", HttpMethodName.POST);
+  public static final Users Login = new Users("id", POST);
   
-  
-  private String path;
-  private HttpMethodName httpMethod;
-  
-  
-  Users(String path, HttpMethodName httpMethod) {
-    
+
+  private Users(String path, HttpMethodName httpMethod) {
+
+    setPathMap(path);
     this.path = path;
     this.httpMethod = httpMethod;
   }
   
-  public String getPath() {
-    
-    return "" + this.path;
-  }
-
-  public HttpMethodName getHttpMethod() {
-    
-    return this.httpMethod;
+  @Override
+  protected String getPreviousPath() {
+   
+    return "/users";
   }
 }

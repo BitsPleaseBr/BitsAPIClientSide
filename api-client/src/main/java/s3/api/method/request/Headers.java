@@ -11,10 +11,14 @@ public class Headers {
   
   public Headers(RequestBuilder builder) {
     
+    this();
     this.builder = builder;
   }
   
-  public Headers() {}
+  public Headers() {
+    
+    put("Content-Type", "application/json");
+  }
   
   
   public Headers put(String key, String value) {

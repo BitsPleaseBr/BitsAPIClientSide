@@ -1,8 +1,9 @@
 package s3.api.method.caller;
 
+import java.util.HashMap;
 import com.amazonaws.ClientConfiguration;
 import ca.ryangreen.apigateway.generic.GenericApiGatewayResponse;
-import s3.api.client.ClientBuilder;
+import s3.api.method.client.ClientBuilder;
 import s3.api.method.request.Body;
 import s3.api.method.request.RequestBuilder;
 import s3.api.method.resources.Resource;
@@ -24,6 +25,19 @@ public class MethodCaller {
     this();
     
     requestBuilder.withBody(body).withResource(resource);
+  }
+  
+  
+  public MethodCaller putParameter(String key, Object value) {
+    
+    getRequestBuilder().getResource().putParameter(key, value);
+    return this;
+  }
+  
+  public MethodCaller putParameters(HashMap<String, Object> parameters) {
+    
+    getRequestBuilder().getResource().putParameters(parameters);
+    return this;
   }
   
   

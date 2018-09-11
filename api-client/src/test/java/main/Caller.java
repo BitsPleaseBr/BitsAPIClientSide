@@ -15,9 +15,9 @@ public class Caller {
       
       GenericApiGatewayResponse response = new MethodCaller(
                                              Users.Login,
-                                             new Body()
-                                               .put("email", "gSilva123@hotmail.com")
-                                               .put("senha", "eusouogerson")).call();
+                                             new Body())
+                                             .putParameter("id", 1)
+                                             .call();
       
       System.out.println("Status: " + response.getHttpResponse().getStatusCode());
       System.out.println("body: "+ response.getBody());
