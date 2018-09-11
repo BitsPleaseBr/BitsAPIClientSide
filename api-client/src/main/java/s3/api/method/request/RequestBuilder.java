@@ -1,12 +1,11 @@
 package s3.api.method.request;
 
 import java.io.ByteArrayInputStream;
-import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import ca.ryangreen.apigateway.generic.GenericApiGatewayRequest;
 import ca.ryangreen.apigateway.generic.GenericApiGatewayRequestBuilder;
+import s3.api.method.caller.MethodCaller;
 import s3.api.method.resources.Resource;
 
 public class RequestBuilder extends GenericApiGatewayRequestBuilder {
@@ -15,6 +14,7 @@ public class RequestBuilder extends GenericApiGatewayRequestBuilder {
   private Headers headers;
   private Body body;
   private Resource resource;
+  private MethodCaller methodCaller;
   
   
   public RequestBuilder() {
@@ -53,6 +53,19 @@ public class RequestBuilder extends GenericApiGatewayRequestBuilder {
     this.resource = resource;
     return this;
   }
+  
+  
+  public RequestBuilder setMethodCaller(MethodCaller caller) {
+    
+    this.methodCaller = caller;
+    return this;
+  }
+  
+  public MethodCaller getMethodCaller() {
+    
+    return this.methodCaller;
+  }
+  
   
   @Override
   public GenericApiGatewayRequest build() {

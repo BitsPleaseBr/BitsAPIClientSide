@@ -27,6 +27,17 @@ public class MethodCaller {
   }
   
   
+  public ClientBuilder getClientBuilder() {
+    
+    return this.clientBuilder.setMethodCaller(this);
+  }
+  
+  public RequestBuilder getRequestBuilder() {
+    
+    return this.requestBuilder.setMethodCaller(this);
+  }
+  
+  
   public GenericApiGatewayResponse call() {
     
     return clientBuilder.build().execute(requestBuilder.build());
