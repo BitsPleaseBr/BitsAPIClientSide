@@ -20,6 +20,14 @@ public abstract class Resource {
   protected HttpMethodName httpMethod;
   protected RequestBuilder requestBuilder;
 
+  
+  protected Resource(String path, HttpMethodName httpMethod) {
+    
+    setPathMap(path);
+    this.path = path;
+    this.httpMethod = httpMethod;
+  }
+  
 
   public Resource putParameter(String key, Object value) {
     
@@ -59,17 +67,22 @@ public abstract class Resource {
     String fullPath = getPreviousPath();
 
     for (Entry<String, Object> entrada : this.pathMap.entrySet()) {
-      fullPath += "/" + entrada.getValue();
+      fullPath += entrada.getValue().equals("") ? "" : "/" + entrada.getValue();
     }
 
+    fullPath += "-" + httpMethod.name().toLowerCase();
+    
     setPathMap(this.path);
     
     fullPath += this.parameters.size() > 0 ? "?" : "";
     
-    for (int i = 0; i < this.parameters.size(); i++) {
+    int i = 0;
+    
+    for (Entry<String, Object> entrada : this.parameters.entrySet()) {
    
-      Entry<String, Object> entrada = new ArrayList<Entry<String, Object>>(this.parameters.entrySet()).get(i);
       fullPath += entrada.getKey() + "=" + entrada.getValue() + (i + 1 < this.parameters.size() ? "&" : "");
+      
+      i++;
     }
     
     return fullPath;
