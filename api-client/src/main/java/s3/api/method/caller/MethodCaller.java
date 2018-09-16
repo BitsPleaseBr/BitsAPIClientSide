@@ -20,10 +20,15 @@ public class MethodCaller {
     clientBuilder.withClientConfiguration(new ClientConfiguration());
   }
   
-  public MethodCaller(Resource resource, Body body) {
+  public MethodCaller(Resource resource) {
     
     this();
+    requestBuilder.withResource(resource);
+  }
+  
+  public MethodCaller(Resource resource, Body body) {
     
+    this(); 
     requestBuilder.withBody(body).withResource(resource);
   }
   

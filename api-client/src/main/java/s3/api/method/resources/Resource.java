@@ -16,15 +16,13 @@ public abstract class Resource {
 
   protected HashMap<String, Object> pathMap = new HashMap<String, Object>();
   protected HashMap<String, Object> parameters = new HashMap<String, Object>();
-  protected String path;
   protected HttpMethodName httpMethod;
   protected RequestBuilder requestBuilder;
-
+  protected Resource parentResource;
   
-  protected Resource(String path, HttpMethodName httpMethod) {
+  protected Resource(HttpMethodName httpMethod) {
     
-    setPathMap(path);
-    this.path = path;
+    resetPathMap();
     this.httpMethod = httpMethod;
   }
   
@@ -64,15 +62,17 @@ public abstract class Resource {
 
   public String getPath() {
 
-    String fullPath = getPreviousPath();
+    String fullPath = "";
 
-    for (Entry<String, Object> entrada : this.pathMap.entrySet()) {
-      fullPath += entrada.getValue().equals("") ? "" : "/" + entrada.getValue();
+    for (String individualPath : getAbsolutePath().split("/")) {
+      if (individualPath.equals(""))
+        continue;
+      fullPath += "/" + this.pathMap.get(individualPath);
     }
-
+    
     fullPath += "-" + httpMethod.name().toLowerCase();
     
-    setPathMap(this.path);
+    resetPathMap();
     
     fullPath += this.parameters.size() > 0 ? "?" : "";
     
@@ -88,7 +88,7 @@ public abstract class Resource {
     return fullPath;
   }
 
-  protected abstract String getPreviousPath();  
+  public abstract String getAbsolutePath();  
   
   public RequestBuilder getRequestBuilder() {
 
@@ -101,11 +101,13 @@ public abstract class Resource {
   }
 
 
-  protected void setPathMap(String path) {
+  protected void resetPathMap() {
 
     this.pathMap.clear();
-
-    for (String individualPath : path.split("/")) {
+    
+    for (String individualPath : getAbsolutePath().split("/")) {
+      if (individualPath.equals(""))
+        continue;
       this.pathMap.put(individualPath, individualPath);
     }
   }

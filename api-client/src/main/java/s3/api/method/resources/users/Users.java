@@ -6,16 +6,18 @@ import s3.api.method.resources.Resource;
 public class Users extends Resource {
 
   
-  public static final Users CADASTRO = new Users("", POST), SELECIONAR = new Users("", GET);
+  public static final Users CADASTRAR = new Users(POST), SELECIONAR = new Users(GET);
   
   
-  private Users(String path, HttpMethodName httpMethod) {
+  protected Users(HttpMethodName httpMethod) {
 
-    super(path, httpMethod);
+    super(httpMethod);
   }
   
+  public Users() { super(null); }
+  
   @Override
-  protected String getPreviousPath() {
+  public String getAbsolutePath() {
    
     return "/users";
   }

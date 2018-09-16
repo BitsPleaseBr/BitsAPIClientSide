@@ -14,15 +14,9 @@ public class ClientBuilder extends GenericApiGatewayClientBuilder {
   private MethodCaller methodCaller;
   
   
-  public ClientBuilder withEndpoint(String endpoint) {
-    
-    return this;
-  }
+  public ClientBuilder withEndpoint(String endpoint) { return this; }
 
-  public ClientBuilder withRegion(Region region) {
-    
-    return this;
-  }
+  public ClientBuilder withRegion(Region region) { return this; }
   
   
   public ClientBuilder setMethodCaller(MethodCaller caller) {
