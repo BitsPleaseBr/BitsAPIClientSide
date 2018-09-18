@@ -1,6 +1,7 @@
 package s3.api.method.request;
 
 import java.util.HashMap;
+import com.google.gson.Gson;
 
 public class Body {
 
@@ -14,6 +15,11 @@ public class Body {
     this.builder = builder;
   }
   
+  public <K, V> Body(HashMap<K, V> values) {
+    
+    this.putAll(values);
+  }
+  
   public Body() {}
   
   
@@ -23,9 +29,14 @@ public class Body {
     return this;
   }
   
-  public Body putAll(HashMap<String, Object> newValues) {
+  @SuppressWarnings("unchecked")
+  public <K, V> Body putAll(HashMap<K, V> newValues) {
     
-    this.values.putAll(newValues);
+    Gson g = new Gson();
+    
+    HashMap<String, Object> values = (HashMap<String, Object>) g.fromJson(g.toJson(newValues), HashMap.class);
+
+    this.values.putAll(values);
     return this;
   }
   

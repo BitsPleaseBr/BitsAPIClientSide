@@ -16,10 +16,16 @@ public abstract class Resource {
 
   protected HashMap<String, Object> pathMap = new HashMap<String, Object>();
   protected HashMap<String, Object> parameters = new HashMap<String, Object>();
-  protected String path;
   protected HttpMethodName httpMethod;
   protected RequestBuilder requestBuilder;
-
+  protected Resource parentResource;
+  
+  protected Resource(HttpMethodName httpMethod) {
+    
+    resetPathMap();
+    this.httpMethod = httpMethod;
+  }
+  
 
   public Resource putParameter(String key, Object value) {
     
@@ -56,26 +62,33 @@ public abstract class Resource {
 
   public String getPath() {
 
-    String fullPath = getPreviousPath();
+    String fullPath = "";
 
-    for (Entry<String, Object> entrada : this.pathMap.entrySet()) {
-      fullPath += "/" + entrada.getValue();
+    for (String individualPath : getAbsolutePath().split("/")) {
+      if (individualPath.equals(""))
+        continue;
+      fullPath += "/" + this.pathMap.get(individualPath);
     }
-
-    setPathMap(this.path);
+    
+    fullPath += "-" + httpMethod.name().toLowerCase();
+    
+    resetPathMap();
     
     fullPath += this.parameters.size() > 0 ? "?" : "";
     
-    for (int i = 0; i < this.parameters.size(); i++) {
+    int i = 0;
+    
+    for (Entry<String, Object> entrada : this.parameters.entrySet()) {
    
-      Entry<String, Object> entrada = new ArrayList<Entry<String, Object>>(this.parameters.entrySet()).get(i);
       fullPath += entrada.getKey() + "=" + entrada.getValue() + (i + 1 < this.parameters.size() ? "&" : "");
+      
+      i++;
     }
     
     return fullPath;
   }
 
-  protected abstract String getPreviousPath();  
+  public abstract String getAbsolutePath();  
   
   public RequestBuilder getRequestBuilder() {
 
@@ -88,11 +101,13 @@ public abstract class Resource {
   }
 
 
-  protected void setPathMap(String path) {
+  protected void resetPathMap() {
 
     this.pathMap.clear();
-
-    for (String individualPath : path.split("/")) {
+    
+    for (String individualPath : getAbsolutePath().split("/")) {
+      if (individualPath.equals(""))
+        continue;
       this.pathMap.put(individualPath, individualPath);
     }
   }

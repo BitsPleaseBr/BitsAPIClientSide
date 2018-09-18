@@ -2,6 +2,7 @@ package s3.api.method.caller;
 
 import java.util.HashMap;
 import com.amazonaws.ClientConfiguration;
+import com.google.gson.Gson;
 import ca.ryangreen.apigateway.generic.GenericApiGatewayResponse;
 import s3.api.method.client.ClientBuilder;
 import s3.api.method.request.Body;
@@ -20,10 +21,15 @@ public class MethodCaller {
     clientBuilder.withClientConfiguration(new ClientConfiguration());
   }
   
-  public MethodCaller(Resource resource, Body body) {
+  public MethodCaller(Resource resource) {
     
     this();
+    requestBuilder.withResource(resource);
+  }
+  
+  public MethodCaller(Resource resource, Body body) {
     
+    this(); 
     requestBuilder.withBody(body).withResource(resource);
   }
   
@@ -54,6 +60,7 @@ public class MethodCaller {
   
   public GenericApiGatewayResponse call() {
     
+    System.out.println(new Gson().toJson(requestBuilder.getBody().getValues()));
     return clientBuilder.build().execute(requestBuilder.build());
   }
 }

@@ -1,10 +1,7 @@
 package main;
 
 import ca.ryangreen.apigateway.generic.GenericApiGatewayException;
-import ca.ryangreen.apigateway.generic.GenericApiGatewayResponse;
-import s3.api.method.caller.MethodCaller;
-import s3.api.method.request.Body;
-import s3.api.method.resources.Users;
+import s3.api.access.MethodCallerFactory;
 
 public class Caller {
 
@@ -13,14 +10,7 @@ public class Caller {
     
     try {
       
-      GenericApiGatewayResponse response = new MethodCaller(
-                                             Users.Login,
-                                             new Body())
-                                             .putParameter("id", 1)
-                                             .call();
-      
-      System.out.println("Status: " + response.getHttpResponse().getStatusCode());
-      System.out.println("body: "+ response.getBody());
+      System.out.println(MethodCallerFactory.selecionarUser(1).call().getBody());
     } catch (GenericApiGatewayException e) {
       
       e.printStackTrace();
