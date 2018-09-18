@@ -71,14 +71,14 @@ public class MethodCallerFactory {
     for (UserInfo info : infos)
       body.put((String.valueOf(info)), bean.getInfo(info));
 
-    int userId = (int) bean.getInfo(UserInfo.ID);
+    int userId = (Integer) bean.getInfo(UserInfo.ID);
     return new MethodCaller(Id.ATUALIZAR_PARCIAL, body).putParameter("id", userId);
   }
 
   // users/{id}-put
   public static MethodCaller atualizarUser(UserBean bean) {
 
-    int userId = (int) bean.getInfo(UserInfo.ID);
+    int userId = (Integer) bean.getInfo(UserInfo.ID);
     return new MethodCaller(Id.ATUALIZAR, new Body(bean.getInfosUser())).putParameter("id", userId);
   }
 
@@ -109,14 +109,14 @@ public class MethodCallerFactory {
     for (MedicoInfo info : infos)
       body.put(String.valueOf(info), bean.getInfo(info));
 
-    int userId = (int) bean.getInfo(MedicoInfo.IDUser);
+    int userId = (Integer) bean.getInfo(MedicoInfo.IDUser);
     return new MethodCaller(DadosProfissional.ATUALIZAR_PARCIAL, body).putParameter("id", userId);
   }
 
   // users/{id}/dados-profissional-put
   public static MethodCaller atualizarDadosProfissional(MedicoBean bean) {
 
-    int userId = (int) bean.getInfo(MedicoInfo.IDUser);
+    int userId = (Integer) bean.getInfo(MedicoInfo.IDUser);
     return new MethodCaller(DadosProfissional.ATUALIZAR, new Body(bean.getInfosMed()))
         .putParameter("id", userId);
   }
@@ -131,7 +131,7 @@ public class MethodCallerFactory {
   //users/{id}/enderecos-put
   public static MethodCaller atualizarEndereco(EnderecoBean bean) {
     
-    int userId = (int) bean.getInfo(EnderecoInfo.IDUser);
+    int userId = (Integer) bean.getInfo(EnderecoInfo.IDUser);
     return new MethodCaller(Enderecos.ATUALIZAR, new Body(bean.getInfosEnd())).putParameter("id", userId);
   }
 }
