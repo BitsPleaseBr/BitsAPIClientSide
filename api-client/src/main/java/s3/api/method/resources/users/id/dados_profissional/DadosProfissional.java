@@ -1,4 +1,4 @@
-package s3.api.method.resources.users.id.dados_profissionais;
+package s3.api.method.resources.users.id.dados_profissional;
 
 import com.amazonaws.http.HttpMethodName;
 import s3.api.method.resources.Resource;

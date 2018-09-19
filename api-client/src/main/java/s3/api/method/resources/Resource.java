@@ -70,8 +70,6 @@ public abstract class Resource {
       fullPath += "/" + this.pathMap.get(individualPath);
     }
     
-    fullPath += "-" + httpMethod.name().toLowerCase();
-    
     resetPathMap();
     
     fullPath += this.parameters.size() > 0 ? "?" : "";

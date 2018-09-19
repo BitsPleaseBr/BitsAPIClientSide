@@ -19,6 +19,6 @@ public class Users extends Resource {
   @Override
   public String getAbsolutePath() {
    
-    return "/users";
+    return "/prod/users";
   }
 }
