@@ -10,7 +10,6 @@ public class ClientBuilder extends GenericApiGatewayClientBuilder {
 
 
   private String endpoint = "https://bh7xqk7gcj.execute-api.sa-east-1.amazonaws.com";
-  private String apiKey = "RE66Z7Dzv56HveU1nXat6aJy9a6U0F178ude2pnj";
   private Region region = Region.getRegion(Regions.fromName("sa-east-1"));
   private MethodCaller methodCaller;
 
@@ -42,7 +41,6 @@ public class ClientBuilder extends GenericApiGatewayClientBuilder {
 
     super.withEndpoint(endpoint);
     super.withRegion(region);
-    super.withApiKey(apiKey);
     
     return super.build();
   }
