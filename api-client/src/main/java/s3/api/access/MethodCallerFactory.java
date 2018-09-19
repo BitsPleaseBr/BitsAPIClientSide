@@ -229,6 +229,6 @@ public class MethodCallerFactory {
     headers.put("email", email);
     headers.put("senha", senha);
 
-    return new MethodCaller(Tokens.SELECIONAR).withHeaders(headers);
+    return new MethodCaller(Tokens.SELECIONAR).withApiKey("RE66Z7Dzv56HveU1nXat6aJy9a6U0F178ude2pnj").withHeaders(headers);
   }
 }

@@ -48,6 +48,12 @@ public class MethodCaller {
     return this;
   }
   
+  public MethodCaller withApiKey(String apiKey) {
+    
+    this.clientBuilder.withApiKey(apiKey);
+    return this;
+  }
+  
   public MethodCaller withHeaders(Headers headers) {
     
     this.requestBuilder.withHeaders(headers);
