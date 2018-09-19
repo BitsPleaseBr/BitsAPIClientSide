@@ -21,6 +21,6 @@ public class Enderecos extends Resource {
     if (parentResource == null)
       this.parentResource = new Id();
     
-    return parentResource.getAbsolutePath() + "/enderecos";
+    return this.parentResource.getAbsolutePath() + "/enderecos";
   }
 }

@@ -1,7 +1,6 @@
 package s3.api.method.request;
 
 import java.io.ByteArrayInputStream;
-import java.util.Map;
 import com.amazonaws.http.HttpMethodName;
 import com.google.gson.Gson;
 import ca.ryangreen.apigateway.generic.GenericApiGatewayRequest;
@@ -76,19 +75,13 @@ public class RequestBuilder extends GenericApiGatewayRequestBuilder {
   public GenericApiGatewayRequest build() {
 
     super.withHeaders(this.headers.getValues());
-    
+ 
     if (this.resource.getHttpMethod().equals(HttpMethodName.POST))
       super.withBody(new ByteArrayInputStream(new Gson().toJson(this.body.getValues()).getBytes()));
+    
     super.withHttpMethod(this.resource.getHttpMethod());
     super.withResourcePath(this.resource.getPath());
-
+    
     return super.build();
-  }
-
-
-  @Override
-  public GenericApiGatewayRequestBuilder withHeaders(Map<String, String> headers) {
-
-    return this;
   }
 }
